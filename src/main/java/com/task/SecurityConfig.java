@@ -30,8 +30,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/token").permitAll()
                         .requestMatchers("/auth/signup").permitAll()
                         
-                       
-                        
+                        .requestMatchers("/admin/add").permitAll() 
+                        .requestMatchers("/task/add").hasRole("ADMIN")                      
                         
                         .anyRequest().authenticated()
                 )
