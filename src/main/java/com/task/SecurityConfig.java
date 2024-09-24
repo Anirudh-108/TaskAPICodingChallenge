@@ -31,7 +31,9 @@ public class SecurityConfig {
                         .requestMatchers("/auth/signup").permitAll()
                         
                         .requestMatchers("/admin/add").permitAll() 
-                        .requestMatchers("/task/add").hasRole("ADMIN")                      
+                        
+                        .requestMatchers("/task/add").hasRole("ADMIN") 
+                        .requestMatchers("/task/all").hasRole("ADMIN")
                         
                         .anyRequest().authenticated()
                 )
