@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,18 @@ public class TaskController {
 		try {
 			task = taskService.updateTaskById(taskId, task);
 			return ResponseEntity.ok(task);
+		} catch (InvalidIdException e) {
+			message.setMessage(e.getMessage());
+			return ResponseEntity.badRequest().body(message);
+		}
+	}
+
+	@DeleteMapping("/delete/{taskId}")
+	public ResponseEntity<?> deleteTaskById(@PathVariable int taskId, MessageDto message) {
+		try {
+			taskService.deleteTaskById(taskId);
+			message.setMessage("Task deleted successfully");
+			return ResponseEntity.ok(message);
 		} catch (InvalidIdException e) {
 			message.setMessage(e.getMessage());
 			return ResponseEntity.badRequest().body(message);
